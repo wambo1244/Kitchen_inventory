@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Ingredient, Inventory, Order, Supplier
 from django.http import HttpResponse
 from django.utils import timezone
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login , logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import Group
                                     
@@ -58,17 +58,17 @@ def is_assistant_catering_officer(user):
 
 # Dashboard views for each user group
 @login_required
-@user_passes_test(is_storekeeper)
+# @user_passes_test(is_storekeeper)
 def storekeeper_dashboard(request):
     return render(request, 'accounts/storekeeper_dashboard.html')
 
 @login_required
-@user_passes_test(is_catering_officer)
+# @user_passes_test(is_catering_officer)
 def catering_officer_dashboard(request):
     return render(request, 'accounts/catering_officer_dashboard.html')
 
 @login_required
-@user_passes_test(is_assistant_catering_officer)
+# @user_passes_test(is_assistant_catering_officer)
 def assistant_catering_officer_dashboard(request):
     return render(request, 'accounts/assistant_catering_officer_dashboard.html')
 
@@ -90,19 +90,23 @@ def user_login(request):
             print(f'User {user.username} belongs to groups: {user.groups.all()}')
 
             # Redirect based on group
-            if user.groups.filter(name='Storekeeper').exists():
-                return redirect('storekeeper_dashboard')
-            elif user.groups.filter(name='Catering Officer').exists():
-                return redirect('catering_officer_dashboard')
-            elif user.groups.filter(name='Assistant Catering Officer').exists():
-                return redirect('assistant_catering_officer_dashboard')
+            if user.groups.filter(name='storekeeper').exists():
+                return redirect('storekeeper_dashboard_url')
+            elif user.groups.filter(name='catering officer').exists():
+                return redirect('catering_officer_dashboard_url')
+            elif user.groups.filter(name='assistant catering officer').exists():
+                return redirect('assistant_catering_officer_dashboard_url')
             else:
                 return redirect('default_dashboard')  # Default if no group assigned
 
         else:
-            return render(request, 'accounts/login.html', {'error': 'Invalid credentials'})
+            return render(request, 'registration/login.html', {'error': 'Invalid credentials'})
 
-    return render(request, 'accounts/login.html')
+    return render(request, 'registration/login.html')
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
 
 
 # Home page view

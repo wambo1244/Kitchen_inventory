@@ -16,17 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from inventory import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('inventory/', include('inventory.urls')),
-    path('', views.home, name='home'),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('login/', views.user_login, name='login'),
-    path('', views.inventory_list, name='inventory_list'),
-    path('storekeeper/dashboard/', views.storekeeper_dashboard, name='storekeeper_dashboard'),
-    path('assistant-catering-officer/dashboard/', views.assistant_catering_officer_dashboard, name='assistant_catering_officer_dashboard'),
-    path('catering-officer/dashboard/', views.catering_officer_dashboard, name='catering_officer_dashboard'),
+    path('', include('inventory.urls')),
+
+
+    # path('', views.home, name='home'),
+    # path('accounts/', include('django.contrib.auth.urls')),
+    # path('login/', views.user_login, name='login'),
+    # path('', views.inventory_list, name='inventory_list'),
+    # path('storekeeper/dashboard/', views.storekeeper_dashboard, name='storekeeper_dashboard'),
+    # path('assistant-catering-officer/dashboard/', views.assistant_catering_officer_dashboard, name='assistant_catering_officer_dashboard'),
+    # path('catering-officer/dashboard/', views.catering_officer_dashboard, name='catering_officer_dashboard'),
 
 ]
