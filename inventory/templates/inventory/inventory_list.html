@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Inventory Management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Body background color and font styles */
+        body {
+            background: linear-gradient(to right, #3498db, #9b59b6); /* Gradient background */
+            font-family: 'Arial', sans-serif;
+            color: #2c3e50;
+            padding-top: 50px;
+        }
+
+        /* Main container styling */
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        /* Header styles */
+        h1,
+        h2 {
+            color: #2c3e50;
+            font-family: 'Helvetica', sans-serif;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #555;
+            text-align: center;
+        }
+
+        /* Navigation Button Container */
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* Buttons - Primary color */
+        .btn-primary {
+            background-color: #2980b9;
+            border-color: #2980b9;
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .btn-primary:hover {
+            background-color: #3498db;
+            border-color: #3498db;
+            transform: translateY(-5px);
+        }
+
+        /* Table Styles */
+        .table th,
+        .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .table th {
+            background-color: #2980b9;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .table tr:nth-child(even) {
+            background-color: #ecf0f1;
+        }
+
+        .table tr:hover {
+            background-color: #f39c12;
+            color: #fff;
+        }
+
+        /* Card Styling */
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .card-header {
+            background-color: #2980b9;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            font-size: 1rem;
+            padding: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #34495e;
+            color: white;
+            font-size: 0.9rem;
+            margin-top: 50px;
+        }
+
+        /* Section Styling */
+        .section-title {
+            color: #2980b9;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-top: 40px;
+            font-weight: bold;
+        }
+
+        /* Add shadow and spacing to tables */
+        .table-container {
+            margin-top: 30px;
+        }
+
+        /* Add hover effect to links */
+        .btn-container a {
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-container a:hover {
+            transform: scale(1.1);
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Home Page Header -->
+        <h1>Welcome to the Kitchen Inventory Management System</h1>
+        <p>This is the main page where you can view and manage your ingredients, suppliers, and inventory.</p>
+
+        <!-- Navigation Links -->
+        <div class="btn-container">
+            <a href="{% url 'storekeeper_dashboard' %}" class="btn btn-primary">Storekeeper Dashboard</a>
+            <a href="{% url 'catering_officer_dashboard' %}" class="btn btn-primary">Catering Officer Dashboard</a>
+            <a href="{% url 'assistant_catering_officer_dashboard' %}" class="btn btn-primary">Assistant Catering Officer Dashboard</a>
+        </div>
+
+        <!-- Ingredients Table -->
+        <div class="table-container">
+            <h2 class="section-title">Ingredients</h2>
+            <div class="card">
+                <div class="card-header">
+                    Ingredient List
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Unit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ingredient in ingredients %}
+                                <tr>
+                                    <td>{{ ingredient.name }}</td>
+                                    <td>{{ ingredient.unit }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="2">No ingredients available.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suppliers Table -->
+        <div class="table-container">
+            <h2 class="section-title">Suppliers</h2>
+            <div class="card">
+                <div class="card-header">
+                    Supplier Information
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Contact</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for supplier in suppliers %}
+                                <tr>
+                                    <td>{{ supplier.name }}</td>
+                                    <td>{{ supplier.contact }}</td>
+                                    <td>{{ supplier.email }}</td>
+                                    <td>{{ supplier.address }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="4">No suppliers available.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inventory Table -->
+        <div class="table-container">
+            <h2 class="section-title">Inventory</h2>
+            <div class="card">
+                <div class="card-header">
+                    Inventory Overview
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Ingredient</th>
+                                <th>Quantity</th>
+                                <th>Unit</th>
+                                <th>Expiry Date</th>
+                                <th>Price</th>
+                                <th>Location</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Date Added</th>
+                                <th>Supplier</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in inventory %}
+                                <tr>
+                                    <td>{{ item.ingredient.name }}</td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>{{ item.ingredient.unit }}</td>
+                                    <td>{{ item.expiry_date }}</td>
+                                    <td>{{ item.price }}</td>
+                                    <td>{{ item.location }}</td>
+                                    <td>{{ item.category }}</td>
+                                    <td>{{ item.status }}</td>
+                                    <td>{{ item.date_added }}</td>
+                                    <td>{{ item.supplier.name|default:"No Supplier" }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="10">No inventory available.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 Kitchen Inventory Management. All rights reserved.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
