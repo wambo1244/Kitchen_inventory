@@ -1,0 +1,13 @@
+{% extends 'base.html' %}  <!-- Extends your base template -->
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Add Inventory Item</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Displays form fields -->
+        <button type="submit" class="btn btn-primary">Add Item</button>
+    </form>
+    <a href="{% url 'storekeeper_dashboard' %}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+</div>
+{% endblock %}
