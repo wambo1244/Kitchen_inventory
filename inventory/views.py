@@ -162,10 +162,8 @@ def assistant_catering_officer_dashboard(request):
 def default_dashboard(request):
     return render(request, 'accounts/default_dashboard.html')
 
+@login_required
 def storekeeper_dashboard(request):
-
-
-
     inventory = Inventory.objects.all()
     ingredients = Ingredient.objects.all()  # This retrieves all ingredients
 
@@ -176,6 +174,7 @@ def storekeeper_dashboard(request):
 
     return render(request, 'accounts/storekeeper_dashboard.html', context)  
 
+@login_required
 def catering_officer_dashboard(request):
     # Fetch necessary data
     inventory = Inventory.objects.all()
@@ -191,6 +190,7 @@ def catering_officer_dashboard(request):
     }
     return render(request, 'accounts/catering_officer_dashboard.html', context)
 
+@login_required
 def assistant_catering_dashboard(request):
 
     context = {
