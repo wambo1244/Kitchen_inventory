@@ -156,7 +156,14 @@ def catering_officer_dashboard(request):
 @login_required
 # @user_passes_test(is_assistant_catering_officer)
 def assistant_catering_officer_dashboard(request):
-    return render(request, 'accounts/assistant_catering_officer_dashboard.html')
+    
+    ingredients =  Ingredient.objects.all()
+
+    context = {
+        'ingredients': ingredients
+    }
+
+    return render(request, 'accounts/assistant_catering_officer_dashboard.html', context)
 
 @login_required
 def default_dashboard(request):
@@ -189,15 +196,6 @@ def catering_officer_dashboard(request):
         'suppliers': suppliers,
     }
     return render(request, 'accounts/catering_officer_dashboard.html', context)
-
-@login_required
-def assistant_catering_dashboard(request):
-
-    context = {
-        'ingredients': Ingredient.objects.all()  # This directly passes the queryset to the template
-    }
-
-    return render(request, 'accounts/assistant_catering_dashboard.html', context)
 
 
 # Login view to authenticate users
